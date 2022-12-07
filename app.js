@@ -45,7 +45,7 @@ function getplayerSelection() {
     case SCISSORS:
       return SCISSORS;
     case QUIT:
-      return QUIT;
+      return ROUNDS=0;
     default:
       console.error("Unknown case");
       return QUIT;
@@ -103,6 +103,8 @@ function playRound() {
   handleWinner(winner, playerSelection, computerSelection);
   return true;
 }
+
+let playerResponse = (getplayerSelection()).toLowerCase();
 
 // Call this function to play the game
 function game() {
