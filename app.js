@@ -95,7 +95,6 @@ function playRound() {
   return true;
 }
 
-let playerResponse = (getplayerSelection()).toLowerCase();
 
 // Call this function to play the game
 function game() {
