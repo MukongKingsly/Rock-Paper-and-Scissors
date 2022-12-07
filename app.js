@@ -83,7 +83,7 @@ function handleWinner(winner, playerSelection, computerSelection) {
   if (winner === TIE) msg += "😲 It's a tie!";
   msg += `\nYou chose ${playerSelection}, the computer chose ${computerSelection}.`;
   msg += `\n\nThe score is now:\nYou: ${PLAYER_SCORE} – Computer: ${COMPUTER_SCORE}`;
-  console.log(msg);
+  return console.log(msg);
 }
 
 // Handles playing one round of Rock, Paper, Scissors.
