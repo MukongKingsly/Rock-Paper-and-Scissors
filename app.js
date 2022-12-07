@@ -45,7 +45,7 @@ function getplayerSelection() {
     case SCISSORS:
       return SCISSORS;
     case QUIT:
-      return ROUNDS=0;
+      return QUIT;
     default:
       console.error("Unknown case");
       return QUIT;
@@ -120,3 +120,5 @@ function game() {
     console.log(`It's a tie!!!  Final score is You: ${PLAYER_SCORE} - Computer: ${COMPUTER_SCORE}`)
   }
 }
+
+game();
