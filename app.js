@@ -118,5 +118,3 @@ function game() {
     console.log(`It's a tie!!!  Final score is You: ${PLAYER_SCORE} - Computer: ${COMPUTER_SCORE}`)
   }
 }
-
-game()
