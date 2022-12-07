@@ -2,7 +2,6 @@
 const ROCK = "rock";
 const PAPER = "paper";
 const SCISSORS = "scissors";
-const QUIT = "quit";
 const PLAYER = "player";
 const COMPUTER = "computer";
 const TIE = "tie";
@@ -15,7 +14,7 @@ const CHOICES = ["rock", "paper", "scissors"];
 
 // Determines if given word is a legal input
 function isLegalChoice(word) {
-  const legalChoices = [ROCK, PAPER, SCISSORS, QUIT];
+  const legalChoices = CHOICES;
   return legalChoices.includes(word);
 }
 
@@ -29,12 +28,12 @@ return CHOICES[randomIndex];
 function getplayerSelection() {
   let choice;
   while (true) {
-    choice = prompt(`Remaining ${ROUNDS} rounds. \nRock, Paper, or Scissors? (or quit to exit)`, "")
+    choice = prompt(`Remaining ${ROUNDS} rounds. \nRock, Paper, or Scissors?`, "")
       .toLowerCase()
       .trim();
     if (isLegalChoice(choice)) break;
     alert(
-      `I don't know "${choice}"\nPlease enter: rock, paper, scissors, or quit.`
+      `I don't know "${choice}"\nPlease enter: rock, paper, scissors.`
     );
   }
   switch (choice) {
@@ -44,20 +43,13 @@ function getplayerSelection() {
       return PAPER;
     case SCISSORS:
       return SCISSORS;
-    case QUIT:
-      return QUIT;
     default:
       console.error("Unknown case");
-      return QUIT;
+      return;
   }
 }
 
 
-//  Displays a message to user before returning false
-function quitGame() {
-  alert("Quiting game...");
-  return false;
-}
 
 // Determines the result of the round.
 function determineWinner(playerSelection, computerSelection) {
@@ -97,7 +89,6 @@ function handleWinner(winner, playerSelection, computerSelection) {
 // Handles playing one round of Rock, Paper, Scissors.
 function playRound() {
   const playerSelection = getplayerSelection();
-  if (playerSelection === QUIT) return quitGame();
   const computerSelection = computerPlay();
   const winner = determineWinner(playerSelection, computerSelection);
   handleWinner(winner, playerSelection, computerSelection);
