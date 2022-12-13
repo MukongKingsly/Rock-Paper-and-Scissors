@@ -1,0 +1,61 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+body {
+    background-color: #FDF8F8;
+}
+:root {
+    --transition: all 0.5s;
+    --transform: scale(1.3);
+}
+h1 {
+    text-align: center;
+    margin: 3rem 0;
+}
+.selections {
+    display: flex;
+    justify-content: center;
+}
+
+.selections button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 5rem;
+    margin: 0 2rem;
+    transition: var(--transition);
+}
+.selections button:hover {
+    transform: var(--transform);
+}
+
+.results {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+    margin: 2rem 0;
+}
+.results > div {
+    display: flex;
+    align-items: center;
+}
+.results p:nth-of-type(1) {
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+.result-score {
+    font-size: 1.4rem;
+    color: #333;
+}
+.result-selection {
+    opacity: 0.5;
+    font-size: 2rem;
+}
+
+.result-selection.winner {
+    opacity: 1;
+    font-size: 3rem;
+}
