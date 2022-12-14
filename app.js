@@ -1,114 +1,73 @@
-// Game variables
-const ROCK = "rock";
-const PAPER = "paper";
-const SCISSORS = "scissors";
-const PLAYER = "player";
-const COMPUTER = "computer";
-const TIE = "tie";
-let PLAYER_SCORE = 0;
-let COMPUTER_SCORE = 0;
-let ROUNDS = 5;
+const selectionButtons = document.querySelectorAll("[data-selection]");
+const finalColumn = document.querySelector("[data-final-column");
+const playerScoreParagraph = document.querySelector("[data-player-score]");
+const computerScoreParagraph = document.querySelector("[data-computer-score]");
 
-const CHOICES = ["rock", "paper", "scissors"];
-// Game functions
+const SELECTIONS = [
+  {
+    name: "rock",
+    emoji: "✊🏻",
+    beats: "scissors",
+  },
+  {
+    name: "paper",
+    emoji: "✋🏻",
+    beats: "rock",
+  },
+  {
+    name: "scissors",
+    emoji: "✌🏻",
+    beats: "paper",
+  },
+];
 
-// Determines if given word is a legal input
-function isLegalChoice(word) {
-  const legalChoices = CHOICES;
-  return legalChoices.includes(word);
+selectionButtons.forEach((selectionButton) => {
+  selectionButton.addEventListener("click", (e) => {
+    const selectionName = selectionButton.dataset.selection;
+    const selection = SELECTIONS.find((selection) => selection.name === selectionName);
+
+    makeSelection(selection);
+  });
+});
+
+function incrementScore(scoreParagraph) {
+  scoreParagraph.innerText = parseInt(scoreParagraph.innerText) + 1;
 }
 
-// Gets a random choice for the computer and returns the choice
-function computerPlay() {
-const randomIndex = Math.floor(Math.random() * CHOICES.length);
-return CHOICES[randomIndex];
-}
+function randomSelection() {
+  const randomIndex = Math.floor(Math.random() * SELECTIONS.length);
+  return SELECTIONS[randomIndex]
+  };
 
-//  Asks the player what their choice is and returns the choice
-function getplayerSelection() {
-  let choice;
-  while (true) {
-    choice = prompt(`Remaining ${ROUNDS} rounds. \nRock, Paper, or Scissors?`, "")
-      .toLowerCase()
-      .trim();
-    if (isLegalChoice(choice)) break;
-    alert(
-      `I don't know "${choice}"\nPlease enter: rock, paper, scissors.`
-    );
-  }
-  switch (choice) {
-    case ROCK:
-      return ROCK;
-    case PAPER:
-      return PAPER;
-    case SCISSORS:
-      return SCISSORS;
-    default:
-      console.error("Unknown case");
-      return;
-  }
-}
+function isWinner(selection, opponentSelection) {
+  return selection.beats === opponentSelection.name
+};
 
+function makeSelection(selection) {
+  const computerSelection = randomSelection();
+  const yourWinner = isWinner(selection, computerSelection);
+  const computerWinner = isWinner(computerSelection, selection)
 
+  // We pass the coputer selection first because we are going to be inserting each
+  // new selection at the top, immediately under the You .. Computer text
+  addSelectionResult(computerSelection, computerWinner)
+  addSelectionResult(selection, yourWinner)
 
-// Determines the result of the round.
-function determineWinner(playerSelection, computerSelection) {
-  if (playerSelection === computerSelection) return TIE;
-  if (playerSelection === ROCK) {
-    if (computerSelection === SCISSORS) return PLAYER;
-    if (computerSelection === PAPER) return COMPUTER;
+  if (yourWinner) {
+    incrementScore(playerScoreParagraph);
   }
-  else if (playerSelection === PAPER) {
-    if (computerSelection === SCISSORS) return COMPUTER;
-    else if (computerSelection === ROCK) return PLAYER;
-  }
-  else if (playerSelection === SCISSORS) {
-    if (computerSelection === ROCK) return COMPUTER;
-    else if (computerSelection === PAPER) return PLAYER;
+  if (computerWinner) {
+    incrementScore(computerScoreParagraph);
   }
 }
 
-
-// Handles displaying message to the user and incrementing the scores at the end of the round.
-function handleWinner(winner, playerSelection, computerSelection) {
-  let msg = "";
-  if (winner === PLAYER) {
-    msg += `🎉 You won! ${playerSelection} beats ${computerSelection}`;
-    PLAYER_SCORE++;
+function addSelectionResult(selection, winner) {
+  const div = document.createElement("div");
+  div.innerText = selection.emoji;
+  div.classList.add("result-selection");
+  if (winner) {
+    // Giving the larger look
+    div.classList.add("winner");
   }
-  else if (winner === COMPUTER) {
-    msg += `😢 You lost! ${computerSelection} beats ${playerSelection}`;
-    COMPUTER_SCORE++;
-  }
-  if (winner === TIE) msg += "😲 It's a tie!";
-  msg += `\nYou chose ${playerSelection}, the computer chose ${computerSelection}.`;
-  msg += `\n\nThe score is now:\nYou: ${PLAYER_SCORE} – Computer: ${COMPUTER_SCORE}`;
-  return console.log(msg);
+finalColumn.after(div)
 }
-
-// Handles playing one round of Rock, Paper, Scissors.
-function playRound() {
-  const playerSelection = getplayerSelection();
-  const computerSelection = computerPlay();
-  const winner = determineWinner(playerSelection, computerSelection);
-  handleWinner(winner, playerSelection, computerSelection);
-  return true;
-}
-
-
-// Call this function to play the game
-function game() {
-  while (ROUNDS > 0) {
-    playRound();
-    ROUNDS--;
-  }
-  if (PLAYER_SCORE > COMPUTER_SCORE) {
-    console.log(`Congratulations you won 🍾🍾🍾!!! Final score is You: ${PLAYER_SCORE} - Computer: ${COMPUTER_SCORE}`);
-  } else if (PLAYER_SCORE < COMPUTER_SCORE) {
-    console.log(`Sorry you lose 😞😞😞! Final score is You: ${PLAYER_SCORE} - Computer: ${COMPUTER_SCORE}`)
-  } else if (PLAYER_SCORE == COMPUTER_SCORE) {
-    console.log(`It's a tie!!!  Final score is You: ${PLAYER_SCORE} - Computer: ${COMPUTER_SCORE}`)
-  }
-}
-
-

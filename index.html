@@ -18,18 +18,18 @@
     <main>
         <h1>Welcome to Rock, Paper, Scissors game</h1>
         <section class="selections">
-            <button>✊🏻</button>
-            <button>✋🏻</button>
-            <button>✌🏻</button>
+            <button data-selection="rock">✊🏻</button>
+            <button data-selection="paper">✋🏻</button>
+            <button data-selection="scissors">✌🏻</button>
         </section>
         <section class="results">
             <div>
                 <p>You</p>
-                <p class="result-score">0</p>
+                <p class="result-score" data-player-score>0</p>
             </div>
-            <div>
+            <div data-final-column>
                 <p>Computer</p>
-                <p class="result-score">0</p>
+                <p class="result-score" data-computer-score>0</p>
             </div>
             <!-- <div class="result-selection winner">✊🏻</div>
             <div class="result-selection">✌🏻</div> -->
