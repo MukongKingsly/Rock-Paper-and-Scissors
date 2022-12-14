@@ -12,6 +12,10 @@ h1 {
     text-align: center;
     margin: 3rem 0;
 }
+.result-heading {
+    font-size: 2rem;
+    text-align: center;
+}
 .selections {
     display: flex;
     justify-content: center;
@@ -58,4 +62,8 @@ h1 {
 .result-selection.winner {
     opacity: 1;
     font-size: 3rem;
+}
+
+button[disabled] {
+    cursor: not-allowed;
 }
